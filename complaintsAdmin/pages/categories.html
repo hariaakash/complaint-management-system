@@ -1,0 +1,125 @@
+<div class="row">
+	<div class="col">
+		<div class="card border-primary">
+			<div class="card-header bg-transparent text-center">
+				Categories & Subcategories
+			</div>
+			<div class="card-body">
+				<h4 class="card-title text-center" ng-show="!categories.length">No categories yet ..</h4>
+				<button class="btn btn-primary pull-right mb-2 ml-2" ng-click="openModal('addSubCategory')">Add a Subcategory</button>
+				<button class="btn btn-primary pull-right mb-2" ng-click="openModal('addCategory')">Create a category</button>
+				<table class="table table-hover text-center" ng-show="categories.length">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="text-center">ID</th>
+							<th class="text-center">Name</th>
+							<th class="text-center">SC</th>
+							<th class="text-center">View</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in categories">
+							<th scope="row">{{$index+1}}</th>
+							<td>{{x.id}}</td>
+							<td>{{x.name}}</td>
+							<td>{{x.sc.length}}</td>
+							<td ng-click="openCategory('viewCategory', x)"><i class="fa fa-envelope-open text-primary"></i></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer bg-transparent text-center">
+				<i class="fa fa-dot-circle-o fa-blink text-success"></i> Solved | <i class="fa fa-dot-circle-o fa-blink text-danger"></i> Not solved
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="viewCategory" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Category: {{category.name}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<h4 class="card-title text-center" ng-show="!category.sc.length">No subcategories yet ..</h4>
+				<table class="table table-hover text-center" ng-show="category.sc.length">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="text-center">ID</th>
+							<th class="text-center">Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in category.sc">
+							<th scope="row">{{$index+1}}</th>
+							<td>{{x.id}}</td>
+							<td>{{x.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Add a new Category</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<form name="addCategoryForm">
+					<div class="form-group">
+						<label class="form-control-label">Name:</label>
+						<input type="text" class="form-control" ng-model="addCategoryForm.name" required>
+					</div>
+					<div class="form-group">
+						<label class="form-control-label">Description:</label>
+						<textarea class="form-control" ng-model="addCategoryForm.des" required></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" ng-disabled="addCategoryForm.$invalid" ng-click="addCategory()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="addSubCategory" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Add a new Subcategory</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<form name="addSubCategoryForm">
+					<div class="form-group">
+						<label>Category: </label>
+						<select class="form-control" ng-model="addSubCategoryForm.cat" ng-options="x as x.name for x in categories"><option value="">Select a category...</option></select>
+					</div>
+					<div class="form-group">
+						<label class="form-control-label">Name:</label>
+						<input type="text" class="form-control" ng-model="addSubCategoryForm.name" required>
+					</div>
+					<div class="form-group">
+						<label class="form-control-label">Description:</label>
+						<textarea class="form-control" ng-model="addSubCategoryForm.des" required></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" ng-disabled="addSubCategoryForm.$invalid" ng-click="addSubCategory()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>
